@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use App\Models\Base\BaseProduct;
+use App\Models\DigitalProduct;
 use App\Models\PhysicalProduct;
 
 enum ProductType: string
@@ -12,12 +12,11 @@ enum ProductType: string
     case Physical = 'physical';
     case Digital = 'digital';
 
-    public static function baseProductClass(): String
+    public function baseProductClass(): string
     {
-        return match (self::class) {
+        return match ($this) {
             self::Physical => PhysicalProduct::class,
-            self::Digital  => BaseProduct::class,
-            default        => BaseProduct::class,
+            self::Digital  => DigitalProduct::class,
         };
     }
 
